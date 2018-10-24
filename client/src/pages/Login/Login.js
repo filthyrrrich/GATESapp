@@ -8,27 +8,31 @@ import API from '../../utils/API';
 
 class Login extends Component {
     state = {
-        username: '',
-        password: '',
-        firstName: '',
-        lastName: '',
+        username: null,
+        password: null,
+        firstName: null,
+        lastName: null,
         redirectTo: null
     };
-
 
     handleInputChange = e => {
         const { name, value } = e.target;
         this.setState({
-        [name]: value
+            [name]: value
         });
-        // console.log(this.state)
     }
-//look up javascript method to go to next page
+
+    //look up javascript method to go to next page
     handleFormSubmit = e => {
         e.preventDefault();
         console.log("clicked working");
         console.log(this.state.username)
-        API.employeeLogin(this.state.username, this.state.password, this.state.firstName, this.state.lastName)
+        API.employeeLogin(
+                this.state.username, 
+                this.state.password, 
+                this.state.firstName, 
+                this.state.lastName
+            )
             .then((res) => {
                 console.log('login response: ')
                 console.log(res)
@@ -39,7 +43,10 @@ class Login extends Component {
                         username: res.data.username,
                         firstName: res.data.firstName,
                         lastName: res.data.lastName,
-                        points: res.data.points
+                        points: res.data.points,
+                        _id: res.data._id,
+                        schedules: res.data.schedules,
+                        title: res.data.title
                     })
                     // update the state to redirect to dash
                     this.setState({
@@ -49,9 +56,7 @@ class Login extends Component {
             }).catch(error => {
                 console.log('login error: ')
                 console.log(error);
-                
             });
-
     };
 
     render() {
@@ -75,8 +80,6 @@ class Login extends Component {
                                         onChange={this.handleInputChange}
                                         type="text" 
                                         name="username" 
-                                        // id="username" 
-                                        // placeholder="(YYYY)" 
                                     />
                                 </FormGroup>
 
@@ -87,8 +90,6 @@ class Login extends Component {
                                         onChange={this.handleInputChange}
                                         type="password" 
                                         name="password" 
-                                        // id="password" 
-                                        // placeholder="(YYYY)" 
                                     />
                                 </FormGroup>
 

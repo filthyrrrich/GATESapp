@@ -3,6 +3,7 @@ const Employee = require("../database/models/employee");
 
 // Defining methods for the empController
 module.exports = {
+
   getEmployee: function(req, res) {
     console.log('===== user!!======')
     console.log(req.user)
@@ -12,64 +13,70 @@ module.exports = {
         res.json({ user: null })
     }
   },
+
   loginUser: function(req, res) {
-        console.log("Controller info:", req.user)
-        const { firstName, lastName, points } = req.user;
-        var userInfo = {
-          //all object data for front end
-          firstName,
-          lastName,
-          points
-        };
-        res.send(userInfo);
+    console.log("Controller info:", req.user)
+    const { firstName, lastName, points, title, schedules, _id } = req.user;
+    
+    let userInfo = {
+      //all object data for front end
+      firstName,
+      lastName,
+      points,
+      title,
+      schedules,
+      _id
+    };
+    res.send(userInfo);
     //json?
 
   },
+
   signupUser: function(req, res) {
 
     const { username, password, firstName, lastName } = req.body
     // ADD VALIDATION
     Employee.findOne({ username: username }, (err, user) => {
-        if (err) {
-            console.log('User.js post error: ', err)
-        } else if (user) {
-            res.json({
-                error: `Sorry, already a user with the username: ${username}`
-            })
-        }
-        else {
-            const newUser = new Employee({
-                username: username,
-                password: password,
-                firstName: firstName,
-                lastName: lastName
-            })
-            newUser.save((err, savedUser) => {
-                if (err) return res.json(err)
-                res.json(savedUser)
-            })
-        }
+      if (err) {
+        console.log('User.js post error: ', err)
+      } else if (user) {
+        res.json({
+            error: `Sorry, already a user with the username: ${username}`
+        })
+      }
+      else {
+        const newUser = new Employee({
+          username: username,
+          password: password,
+          firstName: firstName,
+          lastName: lastName
+        })
+        newUser.save((err, savedUser) => {
+          if (err) return res.json(err)
+          res.json(savedUser)
+        })
+      }
     })
-
   },
+  
   logoutUser: function(req, res) {
     if (req.user) {
       req.logout()
       res.send({ msg: 'logging out' })
-  } else {
+    } else {
       res.send({ msg: 'no user to log out' })
-  }
+    }
   },
 
-  employeeSchedule: function(req, res) {
-    const userID = req.body._id;
+  // employeeSchedule: function(req, res) {
+  //   const userID = req.body._id;
 
-    Employee
-      .find({ _id: userID })
-      .populate('schedules')
-      .then(dbEmployee => res.json(dbEmployee));
+  //   Employee
+  //     .find({ _id: userID })
+  //     .populate('schedules')
+  //     .then(dbEmployee => res.json(dbEmployee));
 
-  }
+  // }
  
 };
 

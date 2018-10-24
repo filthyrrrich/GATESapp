@@ -15,7 +15,12 @@ class App extends Component {
       username: null,
       firstName: null,
       lastName: null,
-      points: null
+      points: null,
+      phone: null,
+      address: null,
+      title: null,
+      schedules: null,
+      _id: null
     }
 
   componentDidMount = () => {
@@ -31,7 +36,10 @@ class App extends Component {
                 username: res.data.user.username,
                 firstName: res.data.user.firstName,
                 lastName: res.data.user.lastName,
-                points: res.data.user.points
+                points: res.data.user.points,
+                schedules: res.data.user.schedules,
+                title: res.data.user.title,
+                _id: res.data.user._id
 
 
               });
@@ -68,8 +76,12 @@ class App extends Component {
           exact path="/dashboard"
           render={() =>
             <Dashboard
+              title={this.state.title}
+              _id={this.state._id}
+              schedules={this.state.schedules}
               points={this.state.points}
               firstName={this.state.firstName}
+              lastName={this.state.lastName}
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
             />}

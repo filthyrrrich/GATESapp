@@ -11,12 +11,10 @@ const employeeSchema = new Schema({
     
     firstName: { type: String, required: false },
     lastName: { type: String, required: false},
-    // email: { type: String, required: true },
-    // password: { type: String, required: true }
     // phone: { type: Number, required: true },
     // address: { type: String, required: true },
     points: { type: Number, required: true, default: 0 },
-    // title: { type: String, required: true, default: "Employee" },
+    title: { type: String, required: true, default: "Employee" },
     // hardSchedule: { type: Array, default: [false, false, false, false, false, false, false] },
     // currentSchedule: Array,
 	// nextSchedule: Array

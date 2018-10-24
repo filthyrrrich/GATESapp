@@ -12,17 +12,13 @@ class Signup extends Component {
         firstName: '',
         lastName: '',
         redirectTo: null
-
-        
     };
-
 
     handleInputChange = e => {
         const { name, value } = e.target;
         this.setState({
-        [name]: value
+            [name]: value
         });
-        // console.log(this.state)
     }
 
     handleFormSubmit = e => {
@@ -30,7 +26,12 @@ class Signup extends Component {
         console.log("clicked working");
         console.log(this.state)
          
-        API.employeeSignup(this.state.username, this.state.password, this.state.firstName, this.state.lastName)
+        API.employeeSignup(
+                this.state.username, 
+                this.state.password, 
+                this.state.firstName, 
+                this.state.lastName
+            )
         .then((res) => {
             console.log('login response: ')
             console.log(res)
@@ -50,9 +51,7 @@ class Signup extends Component {
         }).catch(error => {
             console.log('login error: ')
             console.log(error);
-            
         });
-
     };
 
     render() {
@@ -76,8 +75,6 @@ class Signup extends Component {
                                     onChange={this.handleInputChange}
                                     type="text" 
                                     name="username" 
-                                    // id="username" 
-                                    // placeholder="(YYYY)" 
                                 />
                             </FormGroup>
 
@@ -88,11 +85,10 @@ class Signup extends Component {
                                     onChange={this.handleInputChange}
                                     type="password" 
                                     name="password" 
-                                    // id="pass" 
-                                    // placeholder="(YYYY)" 
                                 />
                             </FormGroup>
                             <hr />
+
                             <FormGroup>
                                 <Label for="firstName" className="form-label">First Name:</Label>
                                 <Input 
@@ -100,8 +96,6 @@ class Signup extends Component {
                                     onChange={this.handleInputChange}
                                     type="text" 
                                     name="firstName" 
-                                    // id="pass" 
-                                    // placeholder="(YYYY)" 
                                 />
                             </FormGroup>
                             
@@ -112,8 +106,6 @@ class Signup extends Component {
                                     onChange={this.handleInputChange}
                                     type="text" 
                                     name="lastName" 
-                                    // id="pass" 
-                                    // placeholder="(YYYY)" 
                                 />
                             </FormGroup>
 

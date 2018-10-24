@@ -1,6 +1,12 @@
 const axios = require('axios');
 
 export default {
+    
+    // Checks for employee logged in
+    employeeCheck: function() {
+        return axios.get("/user")
+    },
+
     //Retrieves Employee
     employeeLogin: (name, pass, first, last) => {
         let loginInfo = {
@@ -22,13 +28,27 @@ export default {
         return axios.post("/user/signup", loginInfo)
     },
     
+    // Logs employee out
     employeeLogout: function() {
         return axios.post("/user/logout")
     },
 
-    employeeCheck: function() {
-        return axios.get("/user/")
-    }
+    // Gets employee schedule from db
+    getEmployeeSchedule: function(id) {
+        let loginInfo = {
+            _id: id
+        }
+        return axios.get("/schedule", loginInfo)
+    },
+
+    // Gets current specified date range schedule
+    // getEmployeeCurrentSchedule: function(id) {
+    //     let loginInfo = {
+    //         _id: id
+    //     }
+    //     return axios.get("/schedule/current", loginInfo)
+    // }
+
    
 };
 

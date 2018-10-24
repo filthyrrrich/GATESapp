@@ -21,8 +21,6 @@ router.route('/')
 router.route('/logout')
   .post(empController.logoutUser);
 
-router.route('/schedule')
-  .post(empController.employeeSchedule);
 
 // Matches with "/user/login/:id"
 // router
