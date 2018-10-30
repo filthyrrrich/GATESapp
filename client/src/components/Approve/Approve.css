@@ -1,0 +1,13 @@
+.reasonText {
+    font-size: 12px;
+    font-style: italic; 
+    /* width: 50px; */
+}
+
+.dropdown-menu.show {
+    /* width: 50px;
+    white-space: initial !important;
+    overflow: scroll!important;
+    text-overflow: ellipsis!important; */
+    
+}

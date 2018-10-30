@@ -1,15 +1,19 @@
 const express = require("express");
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const passport = require('passport');
 const session  = require('express-session');
-const dbConnection = require('./database') 
+const dbConnection = require('./database') ;
 const MongoStore = require('connect-mongo')(session)
 const routes = require("./routes/employees");
 const scheduleRoutes = require('./routes/schedule');
 
 const app = express();
+
+const socket = require('socket.io');
 const PORT = process.env.PORT || 3030;
+
+
 
 // MIDDLEWARE
 app.use(morgan('dev'))
@@ -43,8 +47,36 @@ if (process.env.NODE_ENV === "production") {
 app.use('/user', routes);
 app.use('/schedule', scheduleRoutes);
 
+// Socket.io Setup
+// const io = socket(server);
+// io.on('connection', function(socket){
+// 	console.log("made socket connection~~!", socket.id);
+// })
+// io.on('connection', (socket) => {
+// 	console.log(socket.id);
+// 	socket.on('SEND_MESSAGE', function(data){
+//         io.emit('RECEIVE_MESSAGE', data);
+// });
+	const server = app.listen(PORT, function() {
+	console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+
+  });
+  const io = socket(server);
+
+io.on('connection', (socket) => {
+    console.log("~!---SOCKET HAS CONNECTED---!~",socket.id);
+
+    socket.on('SEND_MESSAGE', function(data){
+        io.sockets.emit('RECEIVE_MESSAGE', data);
+    })
+});
+
+// io.listen(PORT)
+// console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+	
+
 
 // Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
+// app.listen(PORT, function() {
+//   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+// });

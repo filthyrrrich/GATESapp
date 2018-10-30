@@ -5,7 +5,7 @@ const Employee = require("../database/models/employee");
 module.exports = {
 
   getEmployee: function(req, res) {
-    console.log('===== user!!======')
+    console.log('================== employee =======================')
     console.log(req.user)
     if (req.user) {
         res.json({ user: req.user })
@@ -15,7 +15,7 @@ module.exports = {
   },
 
   loginUser: function(req, res) {
-    console.log("Controller info:", req.user)
+    console.log("-----------Controller info:---------", req.user)
     const { firstName, lastName, points, title, schedules, _id } = req.user;
     
     let userInfo = {
@@ -38,10 +38,10 @@ module.exports = {
     // ADD VALIDATION
     Employee.findOne({ username: username }, (err, user) => {
       if (err) {
-        console.log('User.js post error: ', err)
+        console.log('Employee.js post error:::::::::::: ', err)
       } else if (user) {
         res.json({
-            error: `Sorry, already a user with the username: ${username}`
+            error: `There's already an employee with the username: ${username}`
         })
       }
       else {
@@ -64,9 +64,34 @@ module.exports = {
       req.logout()
       res.send({ msg: 'logging out' })
     } else {
-      res.send({ msg: 'no user to log out' })
+      res.send({ msg: 'no employee to log out' })
     }
   },
+
+  updatePoints: function(req, res) {
+    let updatedPoints = req.body.points 
+    console.log("REQ_!_!_!_!_!_", req.body)
+    
+    switch  (req.body.status) {
+      case "Call Out":
+         updatedPoints = req.body.points + 1
+        break;
+      case "Trade Shift":
+        updatedPoints = req.body.points 
+      break;
+      case "Late":
+        updatedPoints = req.body.points + 0.5
+      break;
+    
+      default:
+        break;
+    }
+
+    Employee
+      .findOneAndUpdate({_id: req.body.id}, {points: updatedPoints }, {new: true})
+      .then(dbEmployeePoints => res.json(dbEmployeePoints));
+
+  }
 
   // employeeSchedule: function(req, res) {
   //   const userID = req.body._id;
@@ -80,44 +105,3 @@ module.exports = {
  
 };
 
-
-
-
-
-
-// const db = require("../models");
-
-// // Defining methods for the empController
-// module.exports = {
-//   loginUser: function(req, res) {
-//     db.Employee
-//       .findOne({ email: req.email})
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err));
-//   },
-//   // findById: function(req, res) {
-//   //   db.Employee
-//   //     .findById(req.params.id)
-//   //     .then(dbModel => res.json(dbModel))
-//   //     .catch(err => res.status(422).json(err));
-//   // },
-//   // create: function(req, res) {
-//   //   db.Employee
-//   //     .create(req.body)
-//   //     .then(dbModel => res.json(dbModel))
-//   //     .catch(err => res.status(422).json(err));
-//   // },
-//   // update: function(req, res) {
-//   //   db.Employee
-//   //     .findOneAndUpdate({ _id: req.params.id }, req.body)
-//   //     .then(dbModel => res.json(dbModel))
-//   //     .catch(err => res.status(422).json(err));
-//   // },
-//   // remove: function(req, res) {
-//   //   db.Employee
-//   //     .findById({ _id: req.params.id })
-//   //     .then(dbModel => dbModel.remove())
-//   //     .then(dbModel => res.json(dbModel))
-//   //     .catch(err => res.status(422).json(err));
-//   // }
-// };

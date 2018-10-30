@@ -1,0 +1,14 @@
+.dropdown-toggle {
+    margin: 5px !important;
+    /* margin-right: 10px; */
+}
+.dropdown-menu.show {
+    /* margin-left: -35px; */
+}
+
+.dropdown-header {
+    text-align: center;
+}
+button.dropdown-item {
+    text-align: center;
+}

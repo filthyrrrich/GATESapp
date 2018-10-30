@@ -17,6 +17,7 @@ export default {
         }
         return axios.post("/user/login", loginInfo);
     },
+
     // Signup Employee
     employeeSignup: function(name, pass, first, last) {
         let loginInfo = {
@@ -30,7 +31,7 @@ export default {
     
     // Logs employee out
     employeeLogout: function() {
-        return axios.post("/user/logout")
+        return axios.post("/user/logout");
     },
 
     // Gets employee schedule from db
@@ -38,46 +39,47 @@ export default {
         let loginInfo = {
             _id: id
         }
-        return axios.get("/schedule", loginInfo)
+        return axios.get("/schedule", loginInfo);
     },
 
-    // Gets current specified date range schedule
-    // getEmployeeCurrentSchedule: function(id) {
-    //     let loginInfo = {
-    //         _id: id
-    //     }
-    //     return axios.get("/schedule/current", loginInfo)
-    // }
+    // Gets list of all employees working today
+    employeesScheduledToday: function(begin, end) {
+        let theDay = {
+            begin: begin,
+            end: end
+        }
+        console.log("the day=============", theDay)
+        return axios.get("/schedule/today", theDay);
+    },
 
-   
+    // Updates employees status request
+    updateEmployeeStatus: function(id, status, reason, pending) {
+        let employee = {
+            id: id,
+            status: status,
+            reason: reason,
+            pending: pending
+        }
+        return axios.put("/schedule/status", employee);
+    },
+
+    // Managers confirm request
+    confirmEmployeeRequest: function(id) {
+        let employee = {
+            id: id
+        }
+        return axios.put("/schedule/confirm", employee);
+    },
+
+    // Updates employees points based on request
+    updateEmployeePoints: function(id, points, status) {
+        let employee = {
+            id: id,
+            points: points,
+            status: status
+        }
+        return axios.put("/user/points", employee);
+
+    }
 };
 
-
-
-
-
-
-
-
-
-
-// import axios from 'axios';
-
-// export default {
-//     //Retrieves Employee
-//     employeeLogin: function() {
-//         return axios.get("/api/login");
-//       }
-//     // // Saves an article to the database
-//     // saveArticle: function(articleData) {
-//     //     return axios.post("/api/articles", articleData)
-//     // },
-//     // // Retrieves saved articles from the db
-//     // getSavedArticles: function() {
-//     //     return axios.get("/api/articles");
-//     // }
-//     // // // Deletes an article from the db
-//     // // deleteArticle: function (id) {
-//     // //     return axios.delete(`/api/saved/${id}`);
-//     // }
-// };

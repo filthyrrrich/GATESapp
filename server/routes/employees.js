@@ -2,9 +2,6 @@ const router = require("express").Router();
 const empController = require("../controllers/empController");
 const passport = require('../passport');
 
-// const passport = require('../../controllers/passport');
-
-
   // Matches with "/user/login"
 router.route('/login')
   .post(passport.authenticate('local'), empController.loginUser);
@@ -21,35 +18,8 @@ router.route('/')
 router.route('/logout')
   .post(empController.logoutUser);
 
-
-// Matches with "/user/login/:id"
-// router
-//   .route("/:id")
-//   .get(empController.findById)
-//   .put(empController.update)
-//   .delete(empController.remove);
+  // Matches with "/user/points"
+router.route('/points')
+  .put(empController.updatePoints);
 
 module.exports = router;
-
-
-
-
-
-
-
-// const router = require("express").Router();
-// const empController = require("../../controllers/empController");
-
-// // Matches with "/api/login"
-// router.route("/")
-//   .get(empController.loginUser)
-//   .post(empController.create);
-
-// // Matches with "/api/login/:id"
-// router
-//   .route("/:id")
-//   .get(empController.findById)
-//   .put(empController.update)
-//   .delete(empController.remove);
-
-// module.exports = router;

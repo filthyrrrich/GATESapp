@@ -1,27 +1,25 @@
 import React, { Component } from "react";
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom';
 import Login from "./pages/Login";
-import Signup from "./pages/Signup"
-import Dashboard from "./pages/Dashboard"
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import Manager from "./pages/Manager";
 import API from "./utils/API";
-
-//rework app to look like example
-
 
 class App extends Component {
  
-    state = {
-      loggedIn: null,
-      username: null,
-      firstName: null,
-      lastName: null,
-      points: null,
-      phone: null,
-      address: null,
-      title: null,
-      schedules: null,
-      _id: null
-    }
+  state = {
+    loggedIn: null,
+    username: null,
+    firstName: null,
+    lastName: null,
+    points: null,
+    phone: null,
+    address: null,
+    title: null,
+    schedules: null,
+    _id: null
+  }
 
   componentDidMount = () => {
     API.employeeCheck()
@@ -29,7 +27,7 @@ class App extends Component {
             console.log('Get user response: ')
             console.log(res.data)
             if (res.data.user != null) {
-              console.log('Get User: There is a user saved in the server session: ')
+              console.log('Get User: There is a user saved in the server session: ', res.data.user)
       
               this.setState({
                 loggedIn: true,
@@ -40,10 +38,8 @@ class App extends Component {
                 schedules: res.data.user.schedules,
                 title: res.data.user.title,
                 _id: res.data.user._id
-
-
               });
-              console.log("name?", this.state.firstName)
+              console.log("name?", this.state)
             } else {
               console.log('Get user: no user');
               this.setState({
@@ -71,21 +67,7 @@ class App extends Component {
               updateUser={this.updateUser}
             />}
         />
-        
-        <Route
-          exact path="/dashboard"
-          render={() =>
-            <Dashboard
-              title={this.state.title}
-              _id={this.state._id}
-              schedules={this.state.schedules}
-              points={this.state.points}
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              loggedIn={this.state.loggedIn}
-              updateUser={this.updateUser}
-            />}
-        />
+
         <Route
           exact path="/signup"
           render={() =>
@@ -95,36 +77,56 @@ class App extends Component {
               />}
         />
 
+        <Route
+          exact path="/dashboard"
+          render={ this.state.loggedIn ? () =>
+            <Dashboard
+              title={this.state.title}
+              _id={this.state._id}
+              schedules={this.state.schedules}
+              points={this.state.points}
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              loggedIn={this.state.loggedIn}
+              updateUser={this.updateUser}
+          /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} /> }
+        />
+
+        {/* <Route
+          exact path="/admin"
+          render={ this.state.loggedIn && this.state.title==="admin" ? () =>
+            <Dashboard
+              title={this.state.title}
+              _id={this.state._id}
+              schedules={this.state.schedules}
+              points={this.state.points}
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              loggedIn={this.state.loggedIn}
+              updateUser={this.updateUser}
+            /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} />}
+        /> */}
+        {/* { this.state.loggedIn ?  */}
+        <Route
+          exact path="/manager"
+          render={ this.state.loggedIn && this.state.title==="Manager" ? () =>
+            <Manager
+              title={this.state.title}
+              _id={this.state._id}
+              schedules={this.state.schedules}
+              points={this.state.points}
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              loggedIn={this.state.loggedIn}
+              updateUser={this.updateUser}
+            /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} />}
+        />
+        
+        
+
       </div>
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-// const App = () => (
-//   <Router>
-//     <div>
-//       {/* <Nav /> */}
-//       <Switch>
-//         <Route exact path="/" component={Login} />
-//         <Route exact path="/signup" component={Signup} />
-//         <Route exact path="/dashboard" component={Dashboard} />
-
-
-//         {/* <Route exact path="/books" component={Books} />
-//         <Route exact path="/books/:id" component={Detail} />
-//         <Route component={NoMatch} /> */}
-//       </Switch>
-//     </div>
-//   </Router>
-// );
 
 export default App;

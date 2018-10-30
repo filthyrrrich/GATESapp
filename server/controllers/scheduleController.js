@@ -22,18 +22,52 @@ module.exports = {
 
     getCurrentSchedule: function(req, res) {
         console.log("GET CURRENT CONTROLLER",req.user)
-        console.log("DATENOW", new Date())
+        let today = new Date().toString().split("GMT")[0].slice(0,-10);
         const userID = req.user._id;
     
         Employee
           .find({ _id: userID })
           .populate({
               path: "schedules",
-              match: { "date": { "$gte": new Date() }},
+              match: { "date": { "$gte": new Date(today) }},
               options: { sort: { "date": 1 }}
           })
           .then(dbEmployee => res.json(dbEmployee));
       },
+
+    getTodaysEmployees: function(req, res) {
+        let today = {
+            begin: new Date().toString().split("GMT")[0].slice(0,-10),
+            end: new Date().toString().split("GMT")[0].slice(0,-10) + " 23:59:59"
+        }
+        
+        Employee
+            .find({})
+            .populate({
+                path: "schedules",
+                match: { "date": { "$gte": new Date(today.begin), "$lt": new Date(today.end) }},
+                options: { sort: { "date": 1 }}
+            })
+            .then(dbEmployees => res.json(dbEmployees));
+    },
+
+    updateStatus: function(req, res) {
+        console.log("REQ>BODY>ID", req.body.id)
+        Schedule
+            .findOneAndUpdate({_id: req.body.id}, {status: req.body.status, reason: req.body.reason, pending: req.body.pending}, {new: true})
+            .then(dbEmployeeStatus => res.json(dbEmployeeStatus));
+
+    },
+
+    confirmRequest: function(req, res) {
+        Schedule
+            .findOneAndUpdate({_id: req.body.id}, {confirmation: true, approvalTime: new Date() }, {new: true})
+            .then(dbEmployeeStatus => res.json(dbEmployeeStatus));
+    }
+
+
+
+
 
     // getCurrentSchedule: function(req, res) {
     //     console.log("get schedule-----", req.user);

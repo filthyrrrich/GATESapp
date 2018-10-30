@@ -1,107 +1,113 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import Action from '../../components/Action/Action';
+import { ListGroup, ListGroupItem, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import API from '../../utils/API';
+import './Dashboard.css';
+import io from "socket.io-client";
+
 
 class Dashboard extends Component {
     state = {
-      collapsed: true,
-      currentSchedule: [],
-      redirectTo: '/'
+        collapsed: true,
+        currentSchedule: [],
+        redirectTo: '/'
     };
   
-  toggleNavbar = () => {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-    console.log("loggedin?",this.props.loggedIn)
-    
-  }
+    socket = io('localhost:3030');
 
-  logout = (event) => {
-    event.preventDefault()
-    console.log('logging out')
-    API.employeeLogout()
+    toggleNavbar = () => {
+        this.setState({
+            collapsed: !this.state.collapsed
+        });
+        console.log("loggedin?",this.props.loggedIn)
+    }
+
+    logout = e => {
+        e.preventDefault()
+        console.log('logging out')
+        API.employeeLogout()
+            .then(res => {
+                console.log(res.data)
+                if (res.status === 200) {
+                    this.props.updateUser({
+                        loggedIn: false,
+                        username: null,
+                        firstName: null,
+                        lastName: null,
+                        points: null,
+                        phone: null,
+                        address: null,
+                        title: null,
+                        schedules: null,
+                        _id: null
+                    })
+                }
+            })
+            .catch(error => {
+                console.log('Logout error', error)
+        })
+    }
+
+  componentDidMount = () => {
+//    const socket = io('localhost:3030');
+
+
+    API.getEmployeeSchedule(this.props._id)
         .then(res => {
-            console.log(res.data)
+            console.log('COMP DASH MOUNT:::::==', res)
+            //possibly add if logged in back here
             if (res.status === 200) {
-                this.props.updateUser({
-                loggedIn: false,
-                username: null,
-                firstName: null,
-                lastName: null,
-                points: null,
-                phone: null,
-                address: null,
-                title: null,
-                schedules: null,
-                _id: null
+                this.setState({
+                currentSchedule: res.data[0].schedules
                 })
             }
         })
         .catch(error => {
             console.log('Logout error', error)
-    })
+        })
   }
 
-  componentDidMount = () => {
-    if(this.props.loggedIn) {
-        API.getEmployeeSchedule(this.props._id)
-                .then(res => {
-                    console.log('COMP DASH MOUNT:::::==', res)
-                    if (res.status === 200 && this.props.loggedIn) {
-                        this.setState({
-                        currentSchedule: res.data[0].schedules
-                        })
-                    }
-                })
-                .catch(error => {
-                    console.log('Logout error', error)
-            })
-    }
-    
-  }
-
-  render() {
-    console.log("props",this.props)
-    console.log("CURRENT SCHEDULE", this.state.currentSchedule)
-    if (this.props.loggedIn === false) {
-        return <Redirect to={{ pathname: this.state.redirectTo }} />
-    } else if (this.props.loggedIn === null) {
-        return (
-            <div>Loading...</div>
-        )
-    } else {
-        return (
-        <div>
-            <Navbar color="light" light>
-            <NavbarBrand className="mr-auto">Welcome, {this.props.firstName} {this.props.lastName} <br />Current Points: {this.props.points} </NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse isOpen={!this.state.collapsed} navbar>
-                <Nav navbar>
-                <NavItem>
-                    <NavLink href="/" onClick={this.logout}>Logout</NavLink>
-                </NavItem>
-                </Nav>
-            </Collapse>
-            </Navbar>
-                
-                <ul> <strong>Upcoming Shifts</strong>
+    render() {
+        console.log("props",this.props)
+        console.log("CURRENT SCHEDULE", this.state.currentSchedule)
+       
+            return (
+            <div>
+                <Navbar color="light" light>
+                <NavbarBrand className="mr-auto">Welcome, {this.props.firstName} {this.props.lastName} <br />Current Points: {this.props.points} </NavbarBrand>
+                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+                <Collapse isOpen={!this.state.collapsed} navbar>
+                    <Nav navbar>
+                    <NavItem>
+                        <NavLink href="/" onClick={this.logout}>Logout</NavLink>
+                    </NavItem>
+                    </Nav>
+                </Collapse>
+                </Navbar>
+                    
+                <ListGroup><strong>Upcoming Shifts</strong>
                     {this.state.currentSchedule.map(day => (
                         
-                        <li key={day._id}>
+                        <ListGroupItem color={this.state.collapsed ? "warning" : "none"} key={day._id}>
                             {new Date(day.date).toString().split("GMT")[0].slice(0,-4)}
-                            <button> Call Out</button>
-                            <button>Late</button>
-                            <button>Trade</button>
-                        </li>
+                        <Action 
+                            id={day._id} 
+                            employeeID={this.props._id} 
+                            socket={this.socket}
+                            firstName={this.props.firstName}
+                            lastName={this.props.lastName}
+                            confirm={day.confirmation}
+                            status={day.status}
+                        />
+                        </ListGroupItem>
                     ))}
-                </ul>
-        </div>
-        );
-    }
-    }
+                </ListGroup>
+            </div>
+            );
+        }
+        // }
 }
 
 export default Dashboard;
+
+

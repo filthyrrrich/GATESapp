@@ -9,7 +9,24 @@ const scheduleSchema = new Schema({
     },
 
     confirmation: {
-        type: Boolean
+        type: Boolean,
+        default: false
+    },
+    approvalTime: {
+        type: String,
+        default: null
+    },
+    status: {
+        type: String,
+        default: null
+    },
+    pending: {
+        type: Boolean,
+        default: false
+    },
+    reason: {
+        type: String,
+        default: null
     }
 });
 
