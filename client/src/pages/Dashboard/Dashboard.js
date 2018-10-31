@@ -13,7 +13,7 @@ class Dashboard extends Component {
         redirectTo: '/'
     };
   
-    socket = io('localhost:3030');
+    socket = io(window.location.origin);
 
     toggleNavbar = () => {
         this.setState({

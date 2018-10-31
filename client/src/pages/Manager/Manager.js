@@ -54,7 +54,7 @@ class Manager extends Component {
     componentDidMount = () => {
 
         //Socket connection
-        this.socket = io('localhost:3030');
+        this.socket = io(window.location.origin);
         this.socket.on('RECEIVE_MESSAGE', data => {
             // console.log(this.state)
             console.log("DATA", data)
