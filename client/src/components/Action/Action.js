@@ -57,6 +57,16 @@ class Action extends Component {
     handleModalSubmit = e => {
         e.preventDefault();
         //reason input
+        console.log("PROPS",this.props)
+        let reason = document.getElementById('reason').value;
+        //fix update here
+        API.updateEmployeeStatus( this.props.id, this.state.session, reason, true )
+                .then(res => {
+                    // this.setState({
+                    //     employeeStatus: res.data
+                    // })
+                    console.log("CURRENT EMPLOYEESTATUS STATE", res)
+                }) 
         console.log(document.getElementById('reason').value);
         console.log(`YOUR ${this.state.session } REQUEST HAS BEEN SUBMITTED for:`, this.props.id);
     

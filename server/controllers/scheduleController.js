@@ -3,19 +3,27 @@ const Employee = require('../database/models/employee');
 
 module.exports = {
     createSchedule: function(req, res) {
-        const user_id = '5bcf863e9e7257375b0eab03'
-        console.log('User ID:', user_id)
+        // const user_id = '5bcf863e9e7257375b0eab03'
+        // const user_id = req.body._id
+        const newSchedule = new Schedule({
+            date: req.body.date
+        })
+        console.log('User :', req.body)
+
+        console.log('User ID:', req.body._id)
+        console.log('DATE:', req.body.date)
+
         Schedule
-            .create(req.body)
+            .create(newSchedule)
             .then(dbSchedule => {
                 console.log('New Schedule:', dbSchedule);
                 Employee
                     .findOneAndUpdate(
-                        { _id: user_id }, 
+                        { _id: req.body._id }, 
                         { $push: { schedules: dbSchedule._id } },
                         { new: true }
                     )
-                    .then(res => console.log(res))
+                    .then(addedSchedule => res.json(addedSchedule))
                     .catch(err => res.status(422).json(err));
             })
     },

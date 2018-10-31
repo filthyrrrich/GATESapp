@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Manager from "./pages/Manager";
+import Admin from "./pages/Admin";
 import API from "./utils/API";
 
 class App extends Component {
@@ -92,10 +93,10 @@ class App extends Component {
           /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} /> }
         />
 
-        {/* <Route
+        <Route
           exact path="/admin"
-          render={ this.state.loggedIn && this.state.title==="admin" ? () =>
-            <Dashboard
+          render={ this.state.loggedIn && this.state.title==="Admin" ? () =>
+            <Admin
               title={this.state.title}
               _id={this.state._id}
               schedules={this.state.schedules}
@@ -105,8 +106,8 @@ class App extends Component {
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
             /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} />}
-        /> */}
-        {/* { this.state.loggedIn ?  */}
+        />
+        
         <Route
           exact path="/manager"
           render={ this.state.loggedIn && this.state.title==="Manager" ? () =>
@@ -122,8 +123,6 @@ class App extends Component {
             /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} />}
         />
         
-        
-
       </div>
     );
   }

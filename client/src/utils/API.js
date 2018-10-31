@@ -42,6 +42,11 @@ export default {
         return axios.get("/schedule", loginInfo);
     },
 
+    // Admin Add schedule
+    writeNewSchedule: function(schedule) {
+        return axios.post("/schedule", schedule);
+    },
+
     // Gets list of all employees working today
     employeesScheduledToday: function(begin, end) {
         let theDay = {
@@ -80,6 +85,10 @@ export default {
         }
         return axios.put("/user/points", employee);
 
+    },
+
+    adminAllEmployees: function() {
+        return axios.get("/user/all");
     }
 };
 

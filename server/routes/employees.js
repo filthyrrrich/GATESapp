@@ -22,4 +22,8 @@ router.route('/logout')
 router.route('/points')
   .put(empController.updatePoints);
 
+  // Matches with "/user/all"
+router.route('/all')
+  .get(empController.getAllEmployees);
+
 module.exports = router;

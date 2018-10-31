@@ -91,6 +91,12 @@ module.exports = {
       .findOneAndUpdate({_id: req.body.id}, {points: updatedPoints }, {new: true})
       .then(dbEmployeePoints => res.json(dbEmployeePoints));
 
+  },
+
+  getAllEmployees: function(req, res) {
+    Employee
+      .find({})
+      .then(dbEmployees => res.json(dbEmployees))
   }
 
   // employeeSchedule: function(req, res) {

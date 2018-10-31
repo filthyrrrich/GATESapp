@@ -80,6 +80,8 @@ class Dashboard extends Component {
                     <Nav navbar>
                     <NavItem>
                         <NavLink href="/" onClick={this.logout}>Logout</NavLink>
+                        {this.props.title === "Manager" ? <NavLink href="/dashboard">My Schedule</NavLink> : null}
+                        {this.props.title === "Manager" ? <NavLink href="/manager">Manager Schedule</NavLink> : null}
                     </NavItem>
                     </Nav>
                 </Collapse>
@@ -90,6 +92,7 @@ class Dashboard extends Component {
                         
                         <ListGroupItem color={this.state.collapsed ? "warning" : "none"} key={day._id}>
                             {new Date(day.date).toString().split("GMT")[0].slice(0,-4)}
+                        
                         <Action 
                             id={day._id} 
                             employeeID={this.props._id} 
@@ -98,7 +101,11 @@ class Dashboard extends Component {
                             lastName={this.props.lastName}
                             confirm={day.confirmation}
                             status={day.status}
+                            // pending={day.pending}
                         />
+                
+                    
+                        
                         </ListGroupItem>
                     ))}
                 </ListGroup>

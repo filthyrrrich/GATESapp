@@ -58,6 +58,9 @@ class Manager extends Component {
         this.socket.on('RECEIVE_MESSAGE', data => {
             // console.log(this.state)
             console.log("DATA", data)
+
+
+            //fix update here
             API.updateEmployeeStatus( data.dayID, data.message, data.reason, data.pending )
                 .then(res => {
                     this.setState({
@@ -108,6 +111,8 @@ class Manager extends Component {
                     <Nav navbar>
                     <NavItem>
                         <NavLink href="/" onClick={this.logout}>Logout</NavLink>
+                        <NavLink href="/dashboard">My Schedule</NavLink>
+                        <NavLink href="/manager">Manager Schedule</NavLink>
                     </NavItem>
                     </Nav>
                 </Collapse>

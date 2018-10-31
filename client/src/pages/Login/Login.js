@@ -48,10 +48,28 @@ class Login extends Component {
                         schedules: res.data.schedules,
                         title: res.data.title
                     })
-                    // update the state to redirect to dash
-                    this.setState({
-                        redirectTo: '/dashboard'
-                    })
+
+                    // update the state to redirect to dash/mng/adm
+                    switch (res.data.title) {
+                        case "Employee":
+                            this.setState({
+                                redirectTo: '/dashboard'
+                            })
+                            break;
+                        case "Manager":
+                            this.setState({
+                                redirectTo: '/manager'
+                            })
+                            break;
+                        case "Admin":
+                            this.setState({
+                                redirectTo: '/admin'
+                            })
+                            break;
+                
+                        default:
+                            break;
+                    }
                 }
             }).catch(error => {
                 console.log('login error: ')
