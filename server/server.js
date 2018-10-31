@@ -47,6 +47,10 @@ if (process.env.NODE_ENV === "production") {
 app.use('/user', routes);
 app.use('/schedule', scheduleRoutes);
 
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 // Socket.io Setup
 // const io = socket(server);
 // io.on('connection', function(socket){
