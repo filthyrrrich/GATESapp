@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem, Collapse, Navbar, NavbarToggler, NavbarBrand,
 import Approve from '../../components/Approve';
 import API from '../../utils/API';
 import './Manager.css';
-import io from "socket.io-client/dist/socket.io";
+// import io from "socket.io-client/dist/socket.io";
 
 class Manager extends Component {
     state = {
@@ -54,8 +54,8 @@ class Manager extends Component {
     componentDidMount = () => {
 
         //Socket connection
-        this.socket = io(window.location.origin);
-        this.socket.on('RECEIVE_MESSAGE', data => {
+        // this.socket = io(window.location.origin);
+        this.props.socket.on('RECEIVE_MESSAGE', data => {
             // console.log(this.state)
             console.log("DATA", data)
 

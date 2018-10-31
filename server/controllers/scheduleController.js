@@ -45,9 +45,11 @@ module.exports = {
 
     getTodaysEmployees: function(req, res) {
         let today = {
-            begin: new Date().toString().split("GMT")[0].slice(0,-10),
-            end: new Date().toString().split("GMT")[0].slice(0,-10) + " 23:59:59"
+            begin: new Date().toString().split("GMT")[0].slice(0,-10) + " 06:00:00",
+            end: new Date().toString().split("GMT")[0].slice(0,-10) + " 29:59:59"
         }
+        console.log("BEGIN", today.begin)
+        console.log("END", today.end)
         
         Employee
             .find({})

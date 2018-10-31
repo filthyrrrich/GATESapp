@@ -6,6 +6,8 @@ import Dashboard from "./pages/Dashboard";
 import Manager from "./pages/Manager";
 import Admin from "./pages/Admin";
 import API from "./utils/API";
+import io from "socket.io-client";
+
 
 class App extends Component {
  
@@ -23,6 +25,8 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    this.socket = io(window.location.origin);
+
     API.employeeCheck()
       .then(res => {
             console.log('Get user response: ')
@@ -90,6 +94,7 @@ class App extends Component {
               lastName={this.state.lastName}
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
+              socket={this.socket}
           /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} /> }
         />
 
@@ -105,6 +110,7 @@ class App extends Component {
               lastName={this.state.lastName}
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
+
             /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} />}
         />
         
@@ -120,6 +126,8 @@ class App extends Component {
               lastName={this.state.lastName}
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
+              socket={this.socket}
+
             /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} />}
         />
         

@@ -3,7 +3,7 @@ import Action from '../../components/Action/Action';
 import { ListGroup, ListGroupItem, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import API from '../../utils/API';
 import './Dashboard.css';
-import io from "socket.io-client/dist/socket.io";
+// import io from "socket.io-client/dist/socket.io";
 
 
 class Dashboard extends Component {
@@ -13,7 +13,7 @@ class Dashboard extends Component {
         redirectTo: '/'
     };
   
-    socket = io(window.location.origin);
+    // socket = io(window.location.origin);
 
     toggleNavbar = () => {
         this.setState({
@@ -96,7 +96,7 @@ class Dashboard extends Component {
                         <Action 
                             id={day._id} 
                             employeeID={this.props._id} 
-                            socket={this.socket}
+                            socket={this.props.socket}
                             firstName={this.props.firstName}
                             lastName={this.props.lastName}
                             confirm={day.confirmation}
