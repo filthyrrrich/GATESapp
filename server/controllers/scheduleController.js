@@ -37,7 +37,7 @@ module.exports = {
           .find({ _id: userID })
           .populate({
               path: "schedules",
-              match: { "date": { "$gte": new Date(today) }},
+              match: { "date": { "$gte": today }},
               options: { sort: { "date": 1 }}
           })
           .then(dbEmployee => res.json(dbEmployee));
@@ -45,8 +45,8 @@ module.exports = {
 
     getTodaysEmployees: function(req, res) {
         let today = {
-            begin: new Date().toString().split("GMT")[0].slice(0,-10) + " 06:00:00",
-            end: new Date().toString().split("GMT")[0].slice(0,-10) + " 29:59:59"
+            begin: new Date().toString().split("GMT")[0].slice(0,-10) + " 00:00:00",
+            end: new Date().toString().split("GMT")[0].slice(0,-10) + " 23:59:59"
         }
         console.log("BEGIN", today.begin)
         console.log("END", today.end)
@@ -55,7 +55,7 @@ module.exports = {
             .find({})
             .populate({
                 path: "schedules",
-                match: { "date": { "$gte": new Date(today.begin), "$lt": new Date(today.end) }},
+                match: { "date": { "$gte": today.begin, "$lt": today.end }},
                 options: { sort: { "date": 1 }}
             })
             .then(dbEmployees => res.json(dbEmployees));
