@@ -3,7 +3,7 @@ import Action from '../../components/Action/Action';
 import { ListGroup, ListGroupItem, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import API from '../../utils/API';
 import './Dashboard.css';
-import io from "socket.io-client";
+import io from "socket.io-client/dist/socket.io";
 
 
 class Dashboard extends Component {

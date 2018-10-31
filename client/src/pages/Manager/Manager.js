@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem, Collapse, Navbar, NavbarToggler, NavbarBrand,
 import Approve from '../../components/Approve';
 import API from '../../utils/API';
 import './Manager.css';
-import io from "socket.io-client";
+import io from "socket.io-client/dist/socket.io";
 
 class Manager extends Component {
     state = {
