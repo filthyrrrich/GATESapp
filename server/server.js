@@ -7,6 +7,7 @@ const dbConnection = require('./database') ;
 const MongoStore = require('connect-mongo')(session)
 const routes = require("./routes/employees");
 const scheduleRoutes = require('./routes/schedule');
+const path = require('path');
 
 const app = express();
 
