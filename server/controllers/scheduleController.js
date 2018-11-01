@@ -58,7 +58,7 @@ module.exports = {
             .find({})
             .populate({
                 path: "schedules",
-                match: { "date": { "$gte": today.begin, "$lt": today.end }},
+                match: { "date": { "$gte": new Date(today.begin), "$lt": new Date(today.end) }},
                 options: { sort: { "date": 1 }}
             })
             .then(dbEmployees => res.json(dbEmployees));
