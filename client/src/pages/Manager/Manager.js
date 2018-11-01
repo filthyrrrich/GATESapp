@@ -112,7 +112,7 @@ class Manager extends Component {
                     <NavItem>
                         <NavLink href="/" onClick={this.logout}>Logout</NavLink>
                         <NavLink href="/dashboard">My Schedule</NavLink>
-                        <NavLink href="/manager">Manager Schedule</NavLink>
+                        <NavLink href="/manager">Today's Schedule</NavLink>
                     </NavItem>
                     </Nav>
                 </Collapse>
