@@ -29,12 +29,12 @@ module.exports = {
     },
 
     getCurrentSchedule: function(req, res) {
-        console.log("GET CURRENT CONTROLLER",req.user)
+        console.log("GET CURRENT CONTROLLER",req)
         let today = new Date().toString().split("GMT")[0].slice(0,-10);
-        const userID = req.user._id;
+        const userID = req.params.id;
     
         Employee
-          .find({ _id: userID })
+          .findOne({ _id: userID })
           .populate({
               path: "schedules",
               match: { "date": { "$gte": new Date(today) }},
@@ -44,7 +44,7 @@ module.exports = {
       },
 
     getTodaysEmployees: function(req, res) {
-        let today = {
+        const today = {
             begin: new Date().toString().split("GMT")[0].slice(0,-10),
             end: new Date().toString().split("GMT")[0].slice(0,-10) + " 23:59:59"
         }
@@ -62,7 +62,15 @@ module.exports = {
     updateStatus: function(req, res) {
         console.log("REQ>BODY>ID", req.body.id)
         Schedule
-            .findOneAndUpdate({_id: req.body.id}, {status: req.body.status, reason: req.body.reason, pending: req.body.pending}, {new: true})
+            .findOneAndUpdate({
+                _id: req.body.id
+                }, {
+                    status: req.body.status,
+                    reason: req.body.reason, 
+                    pending: req.body.pending
+                }, {
+                    new: true
+            })
             .then(dbEmployeeStatus => res.json(dbEmployeeStatus));
 
     },
@@ -71,7 +79,24 @@ module.exports = {
         Schedule
             .findOneAndUpdate({_id: req.body.id}, {confirmation: true, approvalTime: new Date() }, {new: true})
             .then(dbEmployeeStatus => res.json(dbEmployeeStatus));
-    }
+    },
+
+    editSchedule: function(req, res) {
+        console.log("REQ>BODY>ID", req.body.id)
+        Schedule
+            .findOneAndUpdate({
+                _id: req.body.id
+                }, {
+                    confirm: req.body.confirm,
+                    status: req.body.status,
+                    reason: req.body.reason, 
+                    pending: req.body.pending
+                }, {
+                    new: true
+            })
+            .then(dbEmployeeSchedule => res.json(dbEmployeeSchedule));
+
+    },
 
 
 

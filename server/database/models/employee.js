@@ -16,8 +16,7 @@ const employeeSchema = new Schema({
     points: { type: Number, required: true, default: 0 },
     title: { type: String, required: true, default: "Employee" },
     // hardSchedule: { type: Array, default: [false, false, false, false, false, false, false] },
-    // currentSchedule: Array,
-	// nextSchedule: Array
+   
 	
 	schedules: [{
 		type: Schema.Types.ObjectId,

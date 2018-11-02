@@ -36,10 +36,10 @@ export default {
 
     // Gets employee schedule from db
     getEmployeeSchedule: function(id) {
-        let loginInfo = {
-            _id: id
-        }
-        return axios.get("/schedule", loginInfo);
+        // let loginInfo = {
+        //     _id: id
+        // }
+        return axios.get("/schedule/"+  id);
     },
 
     // Admin Add schedule
@@ -48,13 +48,13 @@ export default {
     },
 
     // Gets list of all employees working today
-    employeesScheduledToday: function(begin, end) {
-        let theDay = {
-            begin: begin,
-            end: end
-        }
-        console.log("the day=============", theDay)
-        return axios.get("/schedule/today", theDay);
+    employeesScheduledToday: function() {
+        // let theDay = {
+        //     begin: begin,
+        //     end: end
+        // }
+        // console.log("the day=============", theDay)
+        return axios.get("/schedule/today");
     },
 
     // Updates employees status request
@@ -89,6 +89,18 @@ export default {
 
     adminAllEmployees: function() {
         return axios.get("/user/all");
+    },
+
+    adminGetEmployee: function(id) {
+        return axios.get("/user/"+ id);
+    },
+    
+    adminUpdateEmployee: function(employee) {
+        return axios.put("/user/info", employee)
+    },
+
+    adminUpdateEmployeeSchedule: function(schedule) {
+        return axios.put("/schedule/edit", schedule)
     }
 };
 

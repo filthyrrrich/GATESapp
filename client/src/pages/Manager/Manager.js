@@ -53,6 +53,23 @@ class Manager extends Component {
 
     componentDidMount = () => {
 
+        API.employeesScheduledToday()
+        .then(res => {
+            console.log('EMPLOYEE LIST:::::==', res.data)
+            if (res.status === 200) { 
+                this.setState({
+                    employeeList: res.data
+                })
+                console.log("THIS STATE EMP LIST", this.state.employeeList)
+            }
+        })
+        .catch(err => {
+            console.log('Logout error', err)  
+        })
+        console.log("_+_+_+_+_+_+__+_+_",this.state.employeeStatus)
+
+
+
         //Socket connection
         // this.socket = io(window.location.origin);
         this.props.socket.on('RECEIVE_MESSAGE', data => {
@@ -83,20 +100,7 @@ class Manager extends Component {
                 )
         })
         
-        API.employeesScheduledToday()
-            .then(res => {
-                console.log('EMPLOYEE LIST:::::==', res.data)
-                if (res.status === 200) { 
-                    this.setState({
-                        employeeList: res.data
-                    })
-                    console.log("THIS STATE EMP LIST", this.state.employeeList)
-                }
-            })
-            .catch(err => {
-                console.log('Logout error', err)  
-            })
-            console.log("_+_+_+_+_+_+__+_+_",this.state.employeeStatus)
+        
     }
 
     render() {

@@ -96,7 +96,25 @@ module.exports = {
   getAllEmployees: function(req, res) {
     Employee
       .find({})
+      .sort({ lastName: 1})
       .then(dbEmployees => res.json(dbEmployees))
+  },
+
+  employeeInfo: function (req, res) {
+    Employee
+      .findOne({ _id: req.params.id })
+      .then(dbEmployeeInfo => res.json(dbEmployeeInfo))
+  },
+
+  editEmployee: function (req, res) {
+    Employee
+      .findOneAndUpdate({ _id: req.body.id}, {
+          firstName: req.body.fName, 
+          lastName: req.body.lName, 
+          title: req.body.title, 
+          points: req.body.points
+      }, {new: true})
+      .then(dbEmployeeInfo => res.json(dbEmployeeInfo))
   }
 
   // employeeSchedule: function(req, res) {

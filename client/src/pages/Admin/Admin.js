@@ -113,17 +113,17 @@ class Admin extends Component {
                     <thead>
                     <tr>
                         <th>Points</th>
-                        <th>First Name</th>
                         <th>Last Name</th>
+                        <th>First Name</th>
                         <th>Title</th>
                     </tr>
                     </thead>
                     <tbody>
                         {this.state.employeesList.map(emp => (
-                            <tr key={emp._id}>
+                            <tr key={emp._id} bgcolor={emp.points >= 10 ? "#f59292" :  emp.points >= 7 ? "#f5d292": emp.points >= 5 ? "#f3f592" : null}>
                             <th scope="row">{emp.points}</th>
-                            <td>{emp.firstName}</td>
                             <td>{emp.lastName}</td>
+                            <td>{emp.firstName}</td>
                             <td>{emp.title}</td>
                             <td><Edit 
                                     id={emp._id}

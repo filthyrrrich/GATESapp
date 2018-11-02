@@ -58,7 +58,7 @@ class Dashboard extends Component {
             //possibly add if logged in back here
             if (res.status === 200) {
                 this.setState({
-                currentSchedule: res.data[0].schedules
+                currentSchedule: res.data.schedules
                 })
             }
         })
