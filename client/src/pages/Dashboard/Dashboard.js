@@ -101,7 +101,7 @@ class Dashboard extends Component {
                             lastName={this.props.lastName}
                             confirm={day.confirmation}
                             status={day.status}
-                            // pending={day.pending}
+                            pending={day.pending}
                         />
                 
                     

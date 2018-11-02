@@ -4,8 +4,6 @@ const scheduleController = require('../controllers/scheduleController');
 // Matches with "/schedule/"
 router.route('/')
     .post(scheduleController.createSchedule);
-    // .get(scheduleController.getCurrentSchedule);
-
 
 // Matches with "/schedule/today"
 router.route('/today')
@@ -23,6 +21,7 @@ router.route('/confirm')
 router.route('/edit')
     .put(scheduleController.editSchedule);
 
+// Matches with "/schedule/:id"
 router.route('/:id')
     .get(scheduleController.getCurrentSchedule);
 

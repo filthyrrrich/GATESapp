@@ -5,8 +5,9 @@ module.exports = {
     createSchedule: function(req, res) {
         // const user_id = '5bcf863e9e7257375b0eab03'
         // const user_id = req.body._id
+        
         const newSchedule = new Schedule({
-            date: req.body.date
+            date: new Date(req.body.date + "T" + req.body.time)
         })
         console.log('User :', req.body)
 
@@ -77,20 +78,24 @@ module.exports = {
 
     confirmRequest: function(req, res) {
         Schedule
-            .findOneAndUpdate({_id: req.body.id}, {confirmation: true, approvalTime: new Date() }, {new: true})
+            .findOneAndUpdate({_id: req.body.id}, {confirmation: true, approvalTime: new Date(), pending: false }, {new: true})
             .then(dbEmployeeStatus => res.json(dbEmployeeStatus));
     },
 
     editSchedule: function(req, res) {
-        console.log("REQ>BODY>ID", req.body.id)
+        console.log("REQ>BODY>ID", req.body)
+        const alteredDate = new Date(req.body.date + "T" + req.body.time)
+        console.log("CONSTRUCT DATE>>>>>", alteredDate)
         Schedule
             .findOneAndUpdate({
                 _id: req.body.id
                 }, {
-                    confirm: req.body.confirm,
+                    confirmation: req.body.confirm,
                     status: req.body.status,
                     reason: req.body.reason, 
-                    pending: req.body.pending
+                    pending: req.body.pending,
+                    date: alteredDate
+                    
                 }, {
                     new: true
             })

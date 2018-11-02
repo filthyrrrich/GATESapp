@@ -38,7 +38,7 @@ class Approve extends Component {
 
     render() {
         return (
-            
+        this.props.confirmed === true ? "Confirmed" + this.props.value :
         <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle caret>
             Request: {this.props.value}

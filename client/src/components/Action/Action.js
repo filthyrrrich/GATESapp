@@ -120,7 +120,7 @@ class Action extends Component {
     render() {
         return (
             <div>
-                {this.props.confirm && this.props.status ? "Confirmed: "+ this.props.status:
+                {this.props.confirm && this.props.status ? "Confirmed: "+ this.props.status: this.props.pending === true ? "Request Pending: "+ this.props.status :
                 <ButtonDropdown id={this.props.id} isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                     <DropdownToggle caret>Action</DropdownToggle>
                     <DropdownMenu>

@@ -127,14 +127,15 @@ class Manager extends Component {
                         <ListGroupItem color={this.state.collapsed ? "warning" : "none"} key={emp._id}>
                            {emp.firstName} {emp.lastName} {new Date(emp.schedules[0].date).toString().split("GMT")[0].slice(0,-4)}
                            {console.log("EMP-=-=-=-=", emp)}
-                           <div id={emp._id}>{emp.schedules[0].status === null ? null : emp.schedules[0].confirmation===true ? "Confirmed: "+emp.schedules[0].status
+                           <div id={emp._id}>{emp.schedules[0].status === null || emp.schedules[0].status === '' ? null : emp.schedules[0].confirmation===true ? "Confirmed: "+emp.schedules[0].status
                                 :  <Approve 
                                         empID={emp._id}
                                         value={emp.schedules[0].status} 
                                         empPoints={emp.points} 
                                         reason={emp.schedules[0].reason} 
                                         id={emp.schedules[0]._id}
-                                        refreshPage={this.refreshPage}       
+                                        refreshPage={this.refreshPage} 
+                                        confirmed={emp.confirmation}      
                                     />}
                             </div>
                         </ListGroupItem> : null

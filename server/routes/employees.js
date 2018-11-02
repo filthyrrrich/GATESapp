@@ -26,13 +26,11 @@ router.route('/points')
 router.route('/all')
   .get(empController.getAllEmployees);
 
-  // Matches with "/user/:id"
-router.route('/:id')
-  .get(empController.employeeInfo);
-  
-  
 router.route('/info')
   .put(empController.editEmployee);
+    // Matches with "/user/:id"
+router.route('/:id')
+.get(empController.employeeInfo);
 
 
 
