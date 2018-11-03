@@ -55,7 +55,7 @@ class Signup extends Component {
                 <div className='container'>
                     <Card className="login-form" id="login-form">
                         <CardHeader>
-                            <h3 className="card-header">Employee Sign-up</h3>
+                            <h4 className="card-header">Employee Sign-up</h4>
                         </CardHeader>
                         <CardBody>
                             <Form>
