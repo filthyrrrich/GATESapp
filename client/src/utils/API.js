@@ -36,9 +36,6 @@ export default {
 
     // Gets employee schedule from db
     getEmployeeSchedule: function(id) {
-        // let loginInfo = {
-        //     _id: id
-        // }
         return axios.get("/schedule/"+  id);
     },
 
@@ -49,11 +46,6 @@ export default {
 
     // Gets list of all employees working today
     employeesScheduledToday: function() {
-        // let theDay = {
-        //     begin: begin,
-        //     end: end
-        // }
-        // console.log("the day=============", theDay)
         return axios.get("/schedule/today");
     },
 
@@ -84,21 +76,24 @@ export default {
             status: status
         }
         return axios.put("/user/points", employee);
-
     },
 
+    // Gets Current Roster of all employees
     adminAllEmployees: function() {
         return axios.get("/user/all");
     },
 
+    // Gets specific employee
     adminGetEmployee: function(id) {
         return axios.get("/user/"+ id);
     },
     
+    // Updates emplpoyee info
     adminUpdateEmployee: function(employee) {
         return axios.put("/user/info", employee)
     },
 
+    // Updates specific employee schedule
     adminUpdateEmployeeSchedule: function(schedule) {
         return axios.put("/schedule/edit", schedule)
     }

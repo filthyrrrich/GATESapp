@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { Card, Form, FormGroup, Input, Label, Button, CardHeader, CardBody, } from 'reactstrap';
-
 import API from '../../utils/API';
-// import axios from 'axios';
-
+import  "./Login.css";
 
 class Login extends Component {
     state = {
@@ -22,11 +20,10 @@ class Login extends Component {
         });
     }
 
-    //look up javascript method to go to next page
     handleFormSubmit = e => {
         e.preventDefault();
-        console.log("clicked working");
-        console.log(this.state.username)
+        // console.log("clicked working");
+        // console.log(this.state.username)
         API.employeeLogin(
                 this.state.username, 
                 this.state.password, 
@@ -34,8 +31,8 @@ class Login extends Component {
                 this.state.lastName
             )
             .then((res) => {
-                console.log('login response: ')
-                console.log(res)
+                // console.log('login response: ')
+                // console.log(res)
                 if (res.status === 200) {
                     // update App.js state for dashboard props
                     this.props.updateUser({
@@ -72,8 +69,7 @@ class Login extends Component {
                     }
                 }
             }).catch(error => {
-                console.log('login error: ')
-                console.log(error);
+                console.log('login error: ', error)
             });
     };
 
@@ -82,13 +78,11 @@ class Login extends Component {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {
             return (
-                <div className='container'>
+                <div className='container testing'>
                     <Card className="login-form" id="login-form">
-            
                         <CardHeader>
                             <h1 className="card-header">GATES</h1>
                         </CardHeader>
-
                         <CardBody>
                             <Form>
                                 <FormGroup>
@@ -100,7 +94,6 @@ class Login extends Component {
                                         name="username" 
                                     />
                                 </FormGroup>
-
                                 <FormGroup>
                                     <Label for="password" className="form-label">Password:</Label>
                                     <Input 
@@ -110,16 +103,14 @@ class Login extends Component {
                                         name="password" 
                                     />
                                 </FormGroup>
-
                                 <Button
                                     type="submit"
                                     onClick={this.handleFormSubmit}
                                     className="btn btn-success">
                                     Login
                                 </Button>
-                                <br />
-                                <br />
-                                <p> Not a member yet? <a href='/signup'>Sign-up</a></p>
+                                <p id="toSignup"> Not a member yet? <a href='/signup'>Sign-up</a></p><hr />
+                                <p className="llc">2018 Freeroll, LLC</p>
                             </Form>
                         </CardBody>
                     </Card>
@@ -129,69 +120,3 @@ class Login extends Component {
     }
 }
 export default Login;
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { Component } from 'react';
-// import Login from '../../components/Login';
-// import API from '../../utils/API';
-// // import axios from 'axios';
-
-
-// class Home extends Component {
-//     state = {
-//         firstName: '',
-//         lastName: '',
-//         email: ''
-        
-//     };
-
-
-//     handleInputChange = e => {
-//         const { name, value } = e.target;
-//         this.setState({
-//         [name]: value
-//         });
-//         console.log(this.state)
-//     }
-
-//     handleFormSubmit = e => {
-//         e.preventDefault();
-//         console.log("clicked working");
-//         console.log(this.state)
-//         API.employeeLogin()
-//             .then((res) => {
-//                 // console.log(res)
-//                 this.setState({ results: res.data.response.docs });
-//                 console.log("this.state.results: ", this.state.results);
-//             });
-
-//     };
-
-//     render() {
-//         return (
-//             <div>
-//                 <Login 
-//                 handleInputChange={this.handleInputChange}
-//                 handleFormSubmit={this.handleFormSubmit}
-//                 email={this.email}
-//                 // query={this.query}
-//                 // endYear={this.end}
-//                 // startYear={this.start}
-//                 />
-                
-//             </div>
-//         );
-//     }
-// }
-
-// export default Home;

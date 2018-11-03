@@ -19,7 +19,7 @@ class Edit extends Component {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
         });
-        console.log("STATE", this.state)
+        // console.log("STATE", this.state)
     }
 
     toggleModal = () => {
@@ -27,7 +27,7 @@ class Edit extends Component {
           modal: !this.state.modal,
         //   session: null
         });
-        console.log("STATE UPDATING",this.state.updating)
+        // console.log("STATE UPDATING",this.state.updating)
       }
     
     editEmployeeSchedule = (updatedSchedule) => {
@@ -68,13 +68,9 @@ class Edit extends Component {
         switch (this.state.selected) {
             case "New Schedule":
 
-                // let year = document.getElementById("year").value;
-                // let month = document.getElementById("month").value -1;
-                // let day = document.getElementById("day").value;
-                // let time = document.getElementById("time").value;
                 const addDate = document.getElementById("date"+ e.target.name).value;
                 const addTime = document.getElementById("time"+ e.target.name).value;
-                console.log("CO")
+                // console.log("CO")
                 this.addSchedule({
                     _id: e.target.id,
                     date: addDate,
@@ -88,7 +84,7 @@ class Edit extends Component {
                 let lName = document.getElementById("lName").value;
                 let title = document.getElementById("title").value;
                 let points = document.getElementById("points").value;
-                console.log(this.state.selected)
+                // console.log(this.state.selected)
                 this.editEmployeeInfo({
                     id: this.props.id,
                     fName: fName,
@@ -100,14 +96,12 @@ class Edit extends Component {
 
             case "Current Schedule":
                 
-                console.log("NAME>>>>>>>>>>>>",e.target.name)
                 const newConfirm = document.getElementById("confirm"+ e.target.name).value;
                 const newStatus = document.getElementById("status"+ e.target.name).value;
                 const newPending = document.getElementById("pending"+ e.target.name).value;
                 const newReason =  document.getElementById("reason"+ e.target.name).value;
                 const newDate = document.getElementById("date"+ e.target.name).value;
                 const newTime = document.getElementById("time"+ e.target.name).value;
-                console.log("NAME>>>>>>>>>>>>",e.target.name)
 
                 this.editEmployeeSchedule({
                     id: e.target.id,
@@ -127,7 +121,7 @@ class Edit extends Component {
     }
 
     newSchedule = () => {
-        console.log("new schedule clicked");
+        // console.log("new schedule clicked");
         this.setState({
             modal: !this.state.modal,
             selected:  "New Schedule"
@@ -135,10 +129,10 @@ class Edit extends Component {
     }
 
     employeeInfo = () => {
-        console.log();
+        // console.log();
         API.adminGetEmployee(this.props.id)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                this.setState({
                     modal: !this.state.modal,
                     selected:  "Employee Info",
@@ -150,56 +144,21 @@ class Edit extends Component {
                     }
                 }); 
             })
-        
     }
-
-    // displaySchedule = e => {
-    //             const temp= e.target.id
-    //             // const suffix = temp.substr(temp.length-1, temp.length)
-    //             const finalID = temp.substr(2, temp.length);
-    //             console.log("ID I NEED",finalID)
-    //             console.log("OPTIONS=======",e.target.name)
-    //             // this.setState({
-    //             //     updating: {
-    //             //         confirm: document.getElementById("confirm"+ e.target.name).value,
-    //             //         status: document.getElementById("status"+ e.target.name).value, 
-    //             //         pending: document.getElementById("pending"+ e.target.name).value,
-    //             //         reason: document.getElementById("reason"+ e.target.name).value
-    //             //     }
-
-    //             // })
-    //             // console.log("CONFIRM I NEED", suffix)
-    //             // let confirm = document.getElementById("confirm").value;
-    //             // let status = document.getElementById("status").value;
-    //             // let pending = document.getElementById("pending").value;
-    //             // let reason = document.getElementById("reason").value;
-    //             // console.log("THEFUCK IS GOING ON",this.state.schedules)
-    //             // this.editEmployeeSchedule({
-    //             //     id: finalID,
-    //             //     confirm: confirm,
-    //             //     status: status,
-    //             //     pending: pending,
-    //             //     reason: reason
-    //             // })
-    // }
 
     currentSchedule = () => {
         
-        console.log("ID IS",this.props.id)
+        // console.log("ID IS",this.props.id)
         API.getEmployeeSchedule(this.props.id)
             .then( res => {
-                console.log("current schedules", res.data);
+                // console.log("current schedules", res.data);
                 this.setState({
                     modal: !this.state.modal,
                     selected:  "Current Schedule",
                     schedules: res.data.schedules
                 });
             })
-        console.log("current schedule clicked", this.props.id);
-        
-
-        
-        // console.log(this.props.employeeID)
+        // console.log("current schedule clicked", this.props.id);
     }
 
     render() {
@@ -222,80 +181,61 @@ class Edit extends Component {
                     <ModalHeader toggle={this.toggleModal}>{this.state.selected} For: <br />{this.props.fullName}</ModalHeader>
                     <ModalBody>
                         {this.state.selected === "Employee Info" ? 
-                        <div>
-                            <p>First Name:<br /><input type="text" id="fName" defaultValue={this.state.employee.fName}/><br /></p>
-                            <p>Last Name:<br /><input type="text" id="lName" defaultValue={this.state.employee.lName}/><br /></p>
-                            <p>Title:<br /><input type="text" id="title" defaultValue={this.state.employee.title}/><br /></p>
-                            <p>Points:<br /><input type="text" id="points" defaultValue={this.state.employee.points}/><br /></p>
-                        </div>
+                            <div>
+                                <p>First Name:<br /><input type="text" id="fName" defaultValue={this.state.employee.fName}/><br /></p>
+                                <p>Last Name:<br /><input type="text" id="lName" defaultValue={this.state.employee.lName}/><br /></p>
+                                <p>Title:<br /><input type="text" id="title" defaultValue={this.state.employee.title}/><br /></p>
+                                <p>Points:<br /><input type="text" id="points" defaultValue={this.state.employee.points}/><br /></p>
+                            </div>
                         : 
                         this.state.selected === "New Schedule" ? 
-                        <div>
-                            <p>Date: <br /><input id="date" type="date" placeholder="(YYYY-MM-DD)"/><br /></p>
-                            <p>Time: <br /><input id="time" type="time" placeholder="(HH:MM:SS)"/><br /><br /></p>
-
-                            {/* <input id="year" placeholder="(year)"/><br />
-                            <input id="month" placeholder="(month)"/><br />
-                            <input id="day" placeholder="(day)"/><br />
-                            <input id="time" placeholder="(in-time)"/> */}
-                        </div>
+                            <div>
+                                <p>Date: <br /><input id="date" type="date" placeholder="(YYYY-MM-DD)"/><br /></p>
+                                <p>Time: <br /><input id="time" type="time" placeholder="(HH:MM:SS)"/><br /><br /></p>
+                            </div>
                         : 
                         this.state.selected === "Current Schedule" ? 
                         this.state.schedules.map((day,i)  => (
-
                             <div key={day._id}>
                                 <Button name={i} className="collapsible" id={"ID"+ day._id} style={{ marginBottom: '1rem' }}>{new Date(day.date).toString().split("GMT")[0].slice(0,-4)}</Button>
                                 <UncontrolledCollapse toggler={"ID"+ day._id}>
                                     <Card>
                                         <CardBody>
-
-
-                                                
-                                                <p>Status: <br />
-                                                    <select defaultValue={
-                                                        day.status ==="Late" ? "Late" : day.status ==="Call Out" ? "Call Out" : day.status ==="Trade Shift" ? "Trade Shift" : null
-                                                    } id={"status"+i}>
-                                                        <option  id={"none"+i} value='' >None</option>
-                                                        <option  id={"late"+i} value="Late">Late</option> 
-                                                        <option  id={"callOut"+i} value="Call Out">Call Out</option>
-                                                        <option  id={"trade"+i} value="Trade Shift">Trade Shift</option>
-                                                        
-                                                    </select>
-                                                 </p> 
-                                                    {console.log("DAYYYYYYY", day)}
-                                                <p>Confirmed:<br />
-                                                    <select id={"confirm"+i} defaultValue={day.confirmation ? true : false}>
-                                                        <option  value={true}>True</option> 
-                                                        <option  value={false}>False</option>
-                                                    </select> 
-                                                </p>
-                                            
-                                                <p>Pending:<br />
-                                                    <select id={"pending"+i} defaultValue={day.pending ? true : false}>
-                                                        <option  id={"pT"+i} value={true}>True</option> 
-                                                        <option  id={"pF"+i} value={false}>False</option>
-                                                    </select>
-                                                </p>
-                                           
+                                            <p>Status: <br />
+                                                <select defaultValue={day.status ==="Late" ? "Late" : day.status ==="Call Out" ? "Call Out" : day.status ==="Trade Shift" ? "Trade Shift" : null} id={"status"+i}>
+                                                    <option  id={"none"+i} value='' >None</option>
+                                                    <option  id={"late"+i} value="Late">Late</option> 
+                                                    <option  id={"callOut"+i} value="Call Out">Call Out</option>
+                                                    <option  id={"trade"+i} value="Trade Shift">Trade Shift</option>
+                                                </select>
+                                            </p> 
+                                            <p>Confirmed:<br />
+                                                <select id={"confirm"+i} defaultValue={day.confirmation ? true : false}>
+                                                    <option  value={true}>True</option> 
+                                                    <option  value={false}>False</option>
+                                                </select> 
+                                            </p>
+                                            <p>Pending:<br />
+                                                <select id={"pending"+i} defaultValue={day.pending ? true : false}>
+                                                    <option  id={"pT"+i} value={true}>True</option> 
+                                                    <option  id={"pF"+i} value={false}>False</option>
+                                                </select>
+                                            </p>
                                             <p>Reason:<br /><input id={"reason"+ i} defaultValue={day.reason}/><br /></p>
-                                            
                                             <p>Date: <br /><input id={"date"+ i} type="date" defaultValue={day.date.toString().split("T")[0]}/><br /></p>
                                             <p>Time: <br /><input id={"time"+ i} type="time" defaultValue={new Date(day.date).toString().split(" ")[4].trim()}/><br /><br /></p>
-
                                             <Button id={day._id} name={i} color="primary" onClick={this.handleModalSubmit}>Submit</Button>
                                         </CardBody>
                                     </Card>
                                 </UncontrolledCollapse>
-                            </div>
-                        )) : null}
+                            </div>)) 
+                        : null}
                          
                     </ModalBody>
                     <ModalFooter>
                         {this.state.selected === "New Schedule" || this.state.selected === "Employee Info" ? 
                             <Button id={this.props.id} color="primary" onClick={this.handleModalSubmit}>Submit</Button>
-                            : null
-                        }
-                        
+                        : null}
                         <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>

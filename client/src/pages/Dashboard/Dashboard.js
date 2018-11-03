@@ -3,7 +3,6 @@ import Action from '../../components/Action/Action';
 import { ListGroup, ListGroupItem, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import API from '../../utils/API';
 import './Dashboard.css';
-// import io from "socket.io-client/dist/socket.io";
 
 
 class Dashboard extends Component {
@@ -13,13 +12,11 @@ class Dashboard extends Component {
         redirectTo: '/'
     };
   
-    // socket = io(window.location.origin);
-
     toggleNavbar = () => {
         this.setState({
             collapsed: !this.state.collapsed
         });
-        console.log("loggedin?",this.props.loggedIn)
+        // console.log("loggedin?",this.props.loggedIn)
     }
 
     logout = e => {
@@ -51,10 +48,9 @@ class Dashboard extends Component {
   componentDidMount = () => {
 //    const socket = io('localhost:3030');
 
-
     API.getEmployeeSchedule(this.props._id)
         .then(res => {
-            console.log('COMP DASH MOUNT:::::==', res)
+            // console.log('COMP DASH MOUNT:::::==', res)
             //possibly add if logged in back here
             if (res.status === 200) {
                 this.setState({
@@ -68,31 +64,31 @@ class Dashboard extends Component {
   }
 
     render() {
-        console.log("props",this.props)
-        console.log("CURRENT SCHEDULE", this.state.currentSchedule)
        
-            return (
-            <div>
-                <Navbar color="light" light>
-                <NavbarBrand className="mr-auto">Welcome, {this.props.firstName} {this.props.lastName} <br />Current Points: {this.props.points} </NavbarBrand>
-                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                <Collapse isOpen={!this.state.collapsed} navbar>
-                    <Nav navbar>
-                    <NavItem>
-                        <NavLink href="/" onClick={this.logout}>Logout</NavLink>
-                        {this.props.title === "Manager" ? <NavLink href="/dashboard">My Schedule</NavLink> : null}
-                        {this.props.title === "Manager" ? <NavLink href="/manager">Manager Schedule</NavLink> : null}
-                    </NavItem>
-                    </Nav>
-                </Collapse>
-                </Navbar>
+        return (
+        <div className="container">
+            <Navbar color="light" light className="dashNav">
+            <NavbarBrand className="mr-auto">Welcome, {this.props.firstName} {this.props.lastName} <br />Current Points: {this.props.points} </NavbarBrand>
+            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+            <Collapse isOpen={!this.state.collapsed} navbar>
+                <Nav navbar>
+                <NavItem>
+                    <NavLink href="/" onClick={this.logout}>Logout</NavLink>
+                    {this.props.title === "Manager" ? <NavLink href="/dashboard">My Schedule</NavLink> : null}
+                    {this.props.title === "Manager" ? <NavLink href="/manager">Manager Schedule</NavLink> : null}
+                    {this.props.title === "Admin" ? <NavLink href="/admin">Admin Dashboard</NavLink> : null}
+                </NavItem>
+                </Nav>
+            </Collapse>
+            </Navbar>
+                
+            <ListGroup className="dashList"><strong>Upcoming Shifts</strong>
+                {this.state.currentSchedule.map(day => (
                     
-                <ListGroup><strong>Upcoming Shifts</strong>
-                    {this.state.currentSchedule.map(day => (
+                    <ListGroupItem color="warning" key={day._id}>
                         
-                        <ListGroupItem color={this.state.collapsed ? "warning" : "none"} key={day._id}>
-                            {new Date(day.date).toString().split("GMT")[0].slice(0,-4)}
-                        
+                        {new Date(day.date).toString().split("GMT")[0].slice(0,-4)}
+                    
                         <Action 
                             id={day._id} 
                             employeeID={this.props._id} 
@@ -103,16 +99,13 @@ class Dashboard extends Component {
                             status={day.status}
                             pending={day.pending}
                         />
-                
-                    
-                        
-                        </ListGroupItem>
-                    ))}
-                </ListGroup>
-            </div>
-            );
-        }
-        // }
+                    </ListGroupItem>
+                ))}
+            </ListGroup>
+        </div>
+        );
+    }
+     
 }
 
 export default Dashboard;

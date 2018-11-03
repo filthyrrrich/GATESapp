@@ -8,16 +8,14 @@ const employeeSchema = new Schema({
 
     username: { type: String, unique: false, required: false },
     password: { type: String, unique: false, required: false },
-    
     firstName: { type: String, required: false },
     lastName: { type: String, required: false},
-    // phone: { type: Number, required: true },
-    // address: { type: String, required: true },
     points: { type: Number, required: true, default: 0 },
-    title: { type: String, required: true, default: "Employee" },
+	title: { type: String, required: true, default: "Employee" },
+	// phone: { type: Number, required: true },
+    // address: { type: String, required: true },
     // hardSchedule: { type: Array, default: [false, false, false, false, false, false, false] },
    
-	
 	schedules: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Schedule'
@@ -37,11 +35,10 @@ employeeSchema.methods = {
 // Define hooks for pre-saving
 employeeSchema.pre('save', function (next) {
 	if (!this.password) {
-		console.log('models/empolyee.js =======NO PASSWORD PROVIDED=======')
+		// console.log('models/empolyee.js =======NO PASSWORD PROVIDED=======')
 		next()
 	} else {
-		console.log('models/empolyee.js hashPassword in pre save');
-		
+		// console.log('models/empolyee.js hashPassword in pre save');
 		this.password = this.hashPassword(this.password)
 		next()
 	}

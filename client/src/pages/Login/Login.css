@@ -1,0 +1,32 @@
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 400px !important;
+    min-width:  290px !important;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.card-body {
+    border-top: 2px solid black;
+}
+
+#login-form {
+    border: 2px solid black;
+}
+
+.llc {
+    font-size: 12px;
+    text-align: center
+}
+
+#toSignup {
+    margin-top: 10px;
+    position: relative;
+    float: right;
+}
+
+
+

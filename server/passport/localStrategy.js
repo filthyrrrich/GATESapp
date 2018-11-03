@@ -3,16 +3,16 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const strategy = new LocalStrategy(
 	{
-		usernameField: 'username' // not necessary, DEFAULT
+		usernameField: 'username' 
 	},
 	function(username, password, done) {
 		Employee.findOne({ username: username }, (err, user) => {
-			console.log('Find User:', user);
+			// console.log('Find User:', user);
 			if (err) {
 				return done(err)
 			}
 			if (!user) {
-				console.log("No user!!!!!!");
+				// console.log("No user!!!!!!");
 				return done(null, false, { message: 'Incorrect username' })
 			}
 			if (!user.checkPassword(password)) {

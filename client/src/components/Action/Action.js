@@ -14,7 +14,7 @@ class Action extends Component {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
         });
-        console.log("STATE", this.state)
+        // console.log("STATE", this.state)
     }
 
     toggleModal = () => {
@@ -22,7 +22,7 @@ class Action extends Component {
           modal: !this.state.modal,
           session: null
         });
-        console.log(this.state)
+        // console.log(this.state)
       }
 
     sendMessage = () => {
@@ -37,7 +37,7 @@ class Action extends Component {
     }
 
     componentDidMount = () => {
-        console.log("PROPS", this.props)
+        // console.log("PROPS", this.props)
         // console.log("PROPS{}{}{}{}{}{}{", this.props)
         API.getEmployeeSchedule(this.props.employeeID)
         .then(res => {
@@ -57,40 +57,26 @@ class Action extends Component {
     handleModalSubmit = e => {
         e.preventDefault();
         //reason input
-        console.log("PROPS",this.props)
+        // console.log("PROPS",this.props)
         let reason = document.getElementById('reason').value;
-        //fix update here
         API.updateEmployeeStatus( this.props.id, this.state.session, reason, true )
                 .then(res => {
-                    // this.setState({
-                    //     employeeStatus: res.data
-                    // })
-                    console.log("CURRENT EMPLOYEESTATUS STATE", res)
+                    // console.log("CURRENT EMPLOYEESTATUS STATE", res)
                 }) 
-        console.log(document.getElementById('reason').value);
-        console.log(`YOUR ${this.state.session } REQUEST HAS BEEN SUBMITTED for:`, this.props.id);
+        // console.log(document.getElementById('reason').value);
+        // console.log(`YOUR ${this.state.session } REQUEST HAS BEEN SUBMITTED for:`, this.props.id);
     
         this.setState({
             modal: !this.state.modal
           })
           this.sendMessage()
-          console.log(this.state);
-        //   this.props.socket.emit('SEND_MESSAGE', {
-        //     // log the user 
-        //     // log users request
-        //     employee: this.props.firstName +" "+ this.props.lastName,
-        //     message: this.state.session,
-        //     empID: this.props.employeeID,
-        //     dayID: this.props.id,
-        //     reason: document.getElementById('reason').value,
-        //     pending: true
-        // });
+        //   console.log(this.state);
         document.getElementById(this.props.id).innerHTML =  'Request Pending: ' + this.state.session; 
     }
 
     lateClick = () => {
         //send call to toggle late and notify managers
-        console.log("LATE Selected for:",this.props.id);
+        // console.log("LATE Selected for:",this.props.id);
         this.setState({
             modal: !this.state.modal,
             session:  "Late"
@@ -99,7 +85,7 @@ class Action extends Component {
 
     tradeClick = () => {
         //send call to offer this shift up for grabs
-        console.log("TRADE Selected for:",this.props.id);
+        // console.log("TRADE Selected for:",this.props.id);
         this.setState({
             modal: !this.state.modal,
             session:  "Trade Shift"
@@ -109,12 +95,12 @@ class Action extends Component {
     callOutClick = () => {
         //send call to access schedule for this day and change confirm to called out
         // adjust points by +1
-        console.log("CALL OUT Selected for:",this.props.id);
+        // console.log("CALL OUT Selected for:",this.props.id);
         this.setState({
             modal: !this.state.modal,
             session:  "Call Out"
         });
-        console.log(this.props.employeeID)
+        // console.log(this.props.employeeID)
     }
 
     render() {

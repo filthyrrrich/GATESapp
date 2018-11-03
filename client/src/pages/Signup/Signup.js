@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { Card, Form, FormGroup, Input, Label, Button, CardHeader, CardBody, } from 'reactstrap';
 import API from '../../utils/API';
-// import axios from 'axios';
-
+import './Signup.css'
 
 class Signup extends Component {
     state = {
@@ -23,9 +22,6 @@ class Signup extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault();
-        console.log("clicked working");
-        console.log(this.state)
-         
         API.employeeSignup(
                 this.state.username, 
                 this.state.password, 
@@ -33,8 +29,6 @@ class Signup extends Component {
                 this.state.lastName
             )
         .then((res) => {
-            console.log('login response: ')
-            console.log(res)
             if (res.status === 200) {
                 // update App.js state
                 this.props.updateUser({
@@ -49,8 +43,7 @@ class Signup extends Component {
                 })
             }
         }).catch(error => {
-            console.log('login error: ')
-            console.log(error);
+            console.log('login error: ', error)
         });
     };
 
@@ -58,70 +51,64 @@ class Signup extends Component {
         if (this.state.redirectTo) {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {
-        return (
-            <div className='container'>
-                <Card className="login-form" id="login-form">
-                    
-                    <CardHeader>
-                        <h1 className="card-header">GATES Sign Up</h1>
-                    </CardHeader>
-
-                    <CardBody>
-                        <Form>
-                            <FormGroup>
-                                <Label for="username" className="form-label">Username:</Label>
-                                <Input 
-                                    value={this.username}
-                                    onChange={this.handleInputChange}
-                                    type="text" 
-                                    name="username" 
-                                />
-                            </FormGroup>
-
-                            <FormGroup>
-                                <Label for="password" className="form-label">Password:</Label>
-                                <Input 
-                                    value={this.password}
-                                    onChange={this.handleInputChange}
-                                    type="password" 
-                                    name="password" 
-                                />
-                            </FormGroup>
-                            <hr />
-
-                            <FormGroup>
-                                <Label for="firstName" className="form-label">First Name:</Label>
-                                <Input 
-                                    value={this.firstName}
-                                    onChange={this.handleInputChange}
-                                    type="text" 
-                                    name="firstName" 
-                                />
-                            </FormGroup>
-                            
-                            <FormGroup>
-                                <Label for="lastName" className="form-label">Last Name:</Label>
-                                <Input 
-                                    value={this.lastName}
-                                    onChange={this.handleInputChange}
-                                    type="text" 
-                                    name="lastName" 
-                                />
-                            </FormGroup>
-
-                            <Button
-                                type="submit"
-                                onClick={this.handleFormSubmit}
-                                className="btn btn-success">
-                                Sign-up
-                            </Button>
-                            
-                        </Form>
-                    </CardBody>
-                </Card>
-            </div>
-        );
+            return (
+                <div className='container'>
+                    <Card className="login-form" id="login-form">
+                        <CardHeader>
+                            <h3 className="card-header">Employee Sign-up</h3>
+                        </CardHeader>
+                        <CardBody>
+                            <Form>
+                                <FormGroup>
+                                    <Label for="username" className="form-label">Username:</Label>
+                                    <Input 
+                                        value={this.username}
+                                        onChange={this.handleInputChange}
+                                        type="text" 
+                                        name="username" 
+                                    />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="password" className="form-label">Password:</Label>
+                                    <Input 
+                                        value={this.password}
+                                        onChange={this.handleInputChange}
+                                        type="password" 
+                                        name="password" 
+                                    />
+                                </FormGroup><hr />
+                                <FormGroup>
+                                    <Label for="firstName" className="form-label">First Name:</Label>
+                                    <Input 
+                                        value={this.firstName}
+                                        onChange={this.handleInputChange}
+                                        type="text" 
+                                        name="firstName" 
+                                    />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="lastName" className="form-label">Last Name:</Label>
+                                    <Input 
+                                        value={this.lastName}
+                                        onChange={this.handleInputChange}
+                                        type="text" 
+                                        name="lastName" 
+                                    />
+                                </FormGroup>
+                                <Button
+                                    type="submit"
+                                    onClick={this.handleFormSubmit}
+                                    className="btn btn-success"
+                                >
+                                    Sign-up
+                                </Button>
+                                <a id="backToLogin"href="/">back to login</a>
+                            </Form>
+                        </CardBody>
+                    </Card>
+                </div>
+            );
+        }
     }
-}
 }
 export default Signup;

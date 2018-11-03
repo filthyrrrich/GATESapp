@@ -1,12 +1,10 @@
 const Employee = require("../database/models/employee");
-// const passport = require('../passport');
 
-// Defining methods for the empController
 module.exports = {
 
   getEmployee: function(req, res) {
-    console.log('================== employee =======================')
-    console.log(req.user)
+    // console.log('================== employee =======================')
+    // console.log(req.user)
     if (req.user) {
         res.json({ user: req.user })
     } else {
@@ -15,11 +13,10 @@ module.exports = {
   },
 
   loginUser: function(req, res) {
-    console.log("-----------Controller info:---------", req.user)
+    // console.log("-----------Controller info:---------", req.user)
     const { firstName, lastName, points, title, schedules, _id } = req.user;
     
     let userInfo = {
-      //all object data for front end
       firstName,
       lastName,
       points,
@@ -29,14 +26,12 @@ module.exports = {
     };
     res.send(userInfo);
     //json?
-
   },
 
   signupUser: function(req, res) {
-
     const { username, password, firstName, lastName } = req.body
-    // ADD VALIDATION
-    Employee.findOne({ username: username }, (err, user) => {
+    Employee
+      .findOne({ username: username }, (err, user) => {
       if (err) {
         console.log('Employee.js post error:::::::::::: ', err)
       } else if (user) {
@@ -116,16 +111,5 @@ module.exports = {
       }, {new: true})
       .then(dbEmployeeInfo => res.json(dbEmployeeInfo))
   }
-
-  // employeeSchedule: function(req, res) {
-  //   const userID = req.body._id;
-
-  //   Employee
-  //     .find({ _id: userID })
-  //     .populate('schedules')
-  //     .then(dbEmployee => res.json(dbEmployee));
-
-  // }
- 
 };
 

@@ -1,4 +1,4 @@
-const router = require('express').Router()
+const router = require('express').Router();
 const scheduleController = require('../controllers/scheduleController');
 
 // Matches with "/schedule/"

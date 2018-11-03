@@ -8,7 +8,6 @@ import Admin from "./pages/Admin";
 import API from "./utils/API";
 import io from "socket.io-client";
 
-
 class App extends Component {
  
   state = {
@@ -29,10 +28,10 @@ class App extends Component {
 
     API.employeeCheck()
       .then(res => {
-            console.log('Get user response: ')
-            console.log(res.data)
+            // console.log('Get user response: ')
+            // console.log(res.data)
             if (res.data.user != null) {
-              console.log('Get User: There is a user saved in the server session: ', res.data.user)
+              // console.log('Get User: There is a user saved in the server session: ', res.data.user)
       
               this.setState({
                 loggedIn: true,
@@ -44,9 +43,9 @@ class App extends Component {
                 title: res.data.user.title,
                 _id: res.data.user._id
               });
-              console.log("name?", this.state)
+              // console.log("name?", this.state)
             } else {
-              console.log('Get user: no user');
+              // console.log('Get user: no user');
               this.setState({
                 loggedIn: false,
                 username: null
@@ -63,7 +62,6 @@ class App extends Component {
        
     return (
       <div className="App">
-   
         {/* Routes to different components */}
         <Route
           exact path="/"
@@ -79,7 +77,7 @@ class App extends Component {
             <Signup
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
-              />}
+            />}
         />
 
         <Route
@@ -95,7 +93,7 @@ class App extends Component {
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
               socket={this.socket}
-          /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} /> }
+            /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} /> }
         />
 
         <Route
@@ -110,7 +108,6 @@ class App extends Component {
               lastName={this.state.lastName}
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
-
             /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} />}
         />
         
@@ -127,10 +124,8 @@ class App extends Component {
               loggedIn={this.state.loggedIn}
               updateUser={this.updateUser}
               socket={this.socket}
-
             /> : this.state.loggedIn === null ? () => <div>Loading...</div> : () => <Redirect to={{ pathname: "/" }} />}
         />
-        
       </div>
     );
   }

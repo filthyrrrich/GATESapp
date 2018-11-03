@@ -1,9 +1,14 @@
-.btn-hide {
+/* .btn-hide {
  display: none;
 }
 
 .btn-show {
     display: show;
 
-    /* background-color: orange; */
+    
+} */
+
+.mngList {
+    margin: 1% 1%;
+
 }

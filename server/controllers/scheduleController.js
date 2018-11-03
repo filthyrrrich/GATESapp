@@ -3,21 +3,15 @@ const Employee = require('../database/models/employee');
 
 module.exports = {
     createSchedule: function(req, res) {
-        // const user_id = '5bcf863e9e7257375b0eab03'
-        // const user_id = req.body._id
         
         const newSchedule = new Schedule({
             date: new Date(req.body.date + "T" + req.body.time)
         })
-        console.log('User :', req.body)
-
-        console.log('User ID:', req.body._id)
-        console.log('DATE:', req.body.date)
-
+    
         Schedule
             .create(newSchedule)
             .then(dbSchedule => {
-                console.log('New Schedule:', dbSchedule);
+                // console.log('New Schedule:', dbSchedule);
                 Employee
                     .findOneAndUpdate(
                         { _id: req.body._id }, 
@@ -30,7 +24,7 @@ module.exports = {
     },
 
     getCurrentSchedule: function(req, res) {
-        console.log("GET CURRENT CONTROLLER",req)
+        // console.log("GET CURRENT CONTROLLER",req)
         let today = new Date().toString().split("GMT")[0].slice(0,-10);
         const userID = req.params.id;
     
@@ -61,7 +55,7 @@ module.exports = {
     },
 
     updateStatus: function(req, res) {
-        console.log("REQ>BODY>ID", req.body.id)
+        // console.log("REQ>BODY>ID", req.body.id)
         Schedule
             .findOneAndUpdate({
                 _id: req.body.id
@@ -73,7 +67,6 @@ module.exports = {
                     new: true
             })
             .then(dbEmployeeStatus => res.json(dbEmployeeStatus));
-
     },
 
     confirmRequest: function(req, res) {
@@ -100,36 +93,5 @@ module.exports = {
                     new: true
             })
             .then(dbEmployeeSchedule => res.json(dbEmployeeSchedule));
-
-    },
-
-
-
-
-
-    // getCurrentSchedule: function(req, res) {
-    //     console.log("get schedule-----", req.user);
-    //     const userID = req.user._id;
-
-    // Employee
-    //   .find({ _id: userID })
-    //   .populate('schedules')
-    //   .then(dbEmployee => res.json(dbEmployee));
-
-        // Schedule
-        //     .find({
-        //         "date": {
-        //             "$gte": new Date(2018,10,1), 
-        //             "$lt": new Date(2018,10,30)
-        //         }
-        //     })
-        //     .then(dbFoundSchedule => res.json(dbFoundSchedule))
-        //     .catch(err => res.status(422).json(err));
-    // }
+    }
 }
-
-//format for date query search
-// db.getCollection('schedules').find({"date": {"$gte": new Date(2018,9,1), "$lt": new Date(2018,9,30)}})
-
-
-//.then(dbEmployee => res.json(dbFoundSchedule));

@@ -3,7 +3,6 @@ import { ListGroup, ListGroupItem, Collapse, Navbar, NavbarToggler, NavbarBrand,
 import Approve from '../../components/Approve';
 import API from '../../utils/API';
 import './Manager.css';
-// import io from "socket.io-client/dist/socket.io";
 
 class Manager extends Component {
     state = {
@@ -17,15 +16,15 @@ class Manager extends Component {
         this.setState({
             collapsed: !this.state.collapsed
         });
-        console.log("loggedin?",this.props.loggedIn)
+        // console.log("loggedin?",this.props.loggedIn)
     }
 
     logout = e => {
         e.preventDefault()
-        console.log('logging out')
+        // console.log('logging out')
         API.employeeLogout()
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.status === 200) {
                     this.props.updateUser({
                         loggedIn: false,
@@ -47,7 +46,7 @@ class Manager extends Component {
     }
 
     refreshPage = () => {
-        console.log("Clicked");
+        // console.log("Clicked");
         window.location.reload();
       }
 
@@ -55,18 +54,18 @@ class Manager extends Component {
 
         API.employeesScheduledToday()
         .then(res => {
-            console.log('EMPLOYEE LIST:::::==', res.data)
+            // console.log('EMPLOYEE LIST:::::==', res.data)
             if (res.status === 200) { 
                 this.setState({
                     employeeList: res.data
                 })
-                console.log("THIS STATE EMP LIST", this.state.employeeList)
+                // console.log("THIS STATE EMP LIST", this.state.employeeList)
             }
         })
         .catch(err => {
             console.log('Logout error', err)  
         })
-        console.log("_+_+_+_+_+_+__+_+_",this.state.employeeStatus)
+        // console.log("_+_+_+_+_+_+__+_+_",this.state.employeeStatus)
 
 
 
@@ -74,7 +73,7 @@ class Manager extends Component {
         // this.socket = io(window.location.origin);
         this.props.socket.on('RECEIVE_MESSAGE', data => {
             // console.log(this.state)
-            console.log("DATA", data)
+            // console.log("DATA", data)
 
 
             //fix update here
@@ -83,18 +82,18 @@ class Manager extends Component {
                     this.setState({
                         employeeStatus: res.data
                     })
-                    console.log("CURRENT EMPLOYEESTATUS STATE", this.state.employeeStatus)
+                    // console.log("CURRENT EMPLOYEESTATUS STATE", this.state.employeeStatus)
                 }) 
                 .then(
                     API.employeesScheduledToday()
                         .then(res => {
-                            console.log('EMPLOYEE LIST:::::==', res.data)
+                            // console.log('EMPLOYEE LIST:::::==', res.data)
                             if (res.status === 200) {
                                 this.setState({
                                     employeeList: res.data,
 
                                 })
-                                console.log("THIS STATE EMP LIST", this.state.employeeList)
+                                // console.log("THIS STATE EMP LIST", this.state.employeeList)
                             }
                         })
                 )
@@ -104,8 +103,7 @@ class Manager extends Component {
     }
 
     render() {
-        // console.log("props",this.props)
-        // console.log("EMPLOYEE LIST", this.state.employeeList)
+     
             return (
             <div>
                 <Navbar color="light" light>
@@ -122,7 +120,7 @@ class Manager extends Component {
                 </Collapse>
                 </Navbar>
                     
-                <ListGroup><strong>Employee List</strong>
+                <ListGroup className="mngList"><strong>Employee List</strong>
                     {this.state.employeeList.map(emp => ( emp.schedules.length>0 ?
                         <ListGroupItem color={this.state.collapsed ? "warning" : "none"} key={emp._id}>
                            {emp.firstName} {emp.lastName} {new Date(emp.schedules[0].date).toString().split("GMT")[0].slice(0,-4)}
