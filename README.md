@@ -1,5 +1,4 @@
 # GATESapp
-# GATESapp
 
 This app is designed to help employee's and employers communicate more effectively. Easily allows user to create and update employee schedules dynamically. Employees can view their schedules on their mobile device and make requests with real time notifications when they are going to be absent or late. Automatically tracks attendance infractions.
 
