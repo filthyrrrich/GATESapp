@@ -1,16 +1,20 @@
 # GATESapp
 
 This app is designed to help employee's and employers communicate more effectively.
-* **Easily allows user to create and update employee schedules dynamically.**
+### **Easily allows user to create and update employee schedules dynamically.**
 ![Alt text](/../screenshots/admin-dashboard-edit.png?raw=true "Admin Dashboard")
 ![Alt text](/../screenshots/edit-current-schedule.png?raw=true "Edit Schedules")
-* **Employees can view their schedules on their mobile device and make requests with real time notifications when they are going to be absent or late. Automatically tracks attendance infractions.**
+### **Employees can view their schedules on their mobile device and make requests with real time notifications when they are going to be absent or late. Automatically tracks attendance infractions.**
 ![Alt text](/../screenshots/request-callout.png?raw=true "Request callout")
 ![Alt text](/../screenshots/request-callout1.png?raw=true "Request callout")
 
-* **Managers are notified of employees status and can approve their requests.**
+### **Managers are notified of employees status and can approve their requests.**
 ![Alt text](/../screenshots/request-callout2.png?raw=true "Manager approval")
 ![Alt text](/../screenshots/confirmed-callout.png?raw=true "Manager confirmed")
+
+
+[GATESapp Demo](https://gates-app.herokuapp.com/)
+
 
 ## Getting Started
 
